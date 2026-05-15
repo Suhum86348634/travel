@@ -14,7 +14,6 @@ class PromoScreen extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            // Верхняя картинка
             SizedBox(
               height: screenHeight * 0.4,
               width: double.infinity,
@@ -27,11 +26,10 @@ class PromoScreen extends StatelessWidget {
               ),
             ),
 
-            // Нижний блок
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: Column(
-                mainAxisSize: MainAxisSize.min, // 💥 фикс overflow
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(

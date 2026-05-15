@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:travel/providers/detail_provider.dart';
+import 'package:travel/ui/screens/detail_screen.dart';
 import 'package:travel/widgets/card_item.dart';
 import 'package:travel/widgets/filter_menu.dart';
 import '../../providers/discover_provider.dart';
@@ -12,7 +14,6 @@ class DiscoverScreen extends StatelessWidget {
     final provider = context.watch<DiscoverProvider>();
 
     return Scaffold(
-      // 👇 Drawer (выезжающее меню)
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -43,7 +44,6 @@ class DiscoverScreen extends StatelessWidget {
         foregroundColor: Colors.black,
         elevation: 0,
 
-        // 👇 слева иконка меню (автоматически открывает Drawer)
         leading: Builder(
           builder: (context) => IconButton(
             icon: const Icon(Icons.menu),
@@ -55,7 +55,6 @@ class DiscoverScreen extends StatelessWidget {
 
         title: const Text("Discover"),
 
-        // 👇 справа аватарка
         actions: [
           GestureDetector(
             onTap: () {
@@ -77,7 +76,6 @@ class DiscoverScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// Фильтры
           FilterMenu(
             filters: const ["Popular", "Asia", "Europe", "Africa"],
             selectedFilter: provider.selectedFilter,
@@ -86,7 +84,6 @@ class DiscoverScreen extends StatelessWidget {
 
           const SizedBox(height: 16),
 
-          /// Горизонтальный список
           SizedBox(
             height: 180,
             child: provider.horizontalTrips.isEmpty
@@ -96,13 +93,24 @@ class DiscoverScreen extends StatelessWidget {
                     itemCount: provider.horizontalTrips.length,
                     itemBuilder: (context, index) {
                       final trip = provider.horizontalTrips[index];
-                      return Container(
-                        width: 160,
-                        margin: const EdgeInsets.only(right: 12),
-                        child: CardItem(
-                          title: trip.title,
-                          rating: trip.rating,
-                          imageUrl: trip.imageUrl,
+                      return GestureDetector(
+                        onTap: () {
+                          context.read<DetailProvider>().setTrip(trip);
+
+                          Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                              builder: (_) => const DetailScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: 160,
+                          margin: const EdgeInsets.only(right: 12),
+                          child: CardItem(
+                            title: trip.title,
+                            rating: trip.rating,
+                            imageUrl: trip.imageUrl,
+                          ),
                         ),
                       );
                     },
@@ -111,23 +119,31 @@ class DiscoverScreen extends StatelessWidget {
 
           const SizedBox(height: 16),
 
-          /// 🔥 GRID вместо списка
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: provider.verticalTrips.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // 👈 2 колонки
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 0.8, // 👈 пропорции карточки
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 1,
               ),
               itemBuilder: (context, index) {
                 final trip = provider.verticalTrips[index];
-                return CardItem(
-                  title: trip.title,
-                  rating: trip.rating,
-                  imageUrl: trip.imageUrl,
+                return GestureDetector(
+                  onTap: () {
+                    context.read<DetailProvider>().setTrip(trip);
+
+                    Navigator.of(context, rootNavigator: true).push(
+                      MaterialPageRoute(builder: (_) => const DetailScreen()),
+                    );
+                  },
+                  child: CardItem(
+                    title: trip.title,
+                    rating: trip.rating,
+                    imageUrl: trip.imageUrl,
+                  ),
                 );
               },
             ),
