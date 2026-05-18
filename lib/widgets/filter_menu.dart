@@ -14,26 +14,38 @@ class FilterMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return SizedBox(
       height: 40,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: filters.map((filter) {
           final isSelected = selectedFilter == filter;
+
           return GestureDetector(
             onTap: () => onFilterSelected(filter),
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 12),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color: isSelected ? Colors.deepPurple : Colors.grey.shade200,
+                color: isSelected
+                    ? theme.colorScheme.primary
+                    : theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isSelected
+                      ? theme.colorScheme.primary
+                      : theme.colorScheme.outline,
+                ),
               ),
               child: Center(
                 child: Text(
                   filter,
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.black,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: isSelected
+                        ? theme.colorScheme.onPrimary
+                        : theme.colorScheme.onSurface,
                   ),
                 ),
               ),

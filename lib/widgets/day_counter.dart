@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../providers/detail_provider.dart';
+
 
 class DayCounter extends StatelessWidget {
-  const DayCounter({super.key});
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  const DayCounter({super.key, required this.icon, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<DetailProvider>();
-
-    return Row(
-      children: [ 
-        IconButton(
-          onPressed: provider.decreaseDays,
-          icon: const Icon(Icons.remove),
-        ),
-        Text("${provider.days}", style: const TextStyle(fontSize: 18)),
-        IconButton(
-          onPressed: provider.increaseDays,
-          icon: const Icon(Icons.add),
-        ),
-        const SizedBox(width: 12),
-        const Icon(Icons.access_time),
-        const SizedBox(width: 4),
-        Text("${provider.days} Days"),
-      ],
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      width: 32,
+      height: 32,
+      decoration: BoxDecoration(
+        color: cs.primaryContainer,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: IconButton(
+        padding: EdgeInsets.zero,
+        icon: Icon(icon, size: 16, color: cs.onPrimaryContainer),
+        onPressed: onPressed,
+      ),
     );
   }
 }

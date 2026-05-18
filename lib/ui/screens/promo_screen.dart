@@ -10,7 +10,6 @@ class PromoScreen extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
           children: [
@@ -32,32 +31,28 @@ class PromoScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     "Winter Vacation Trips",
-                    style: TextStyle(
-                      fontFamily: "Merriweather",
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
+
                   const SizedBox(height: 12),
 
-                  const Text(
+                  Text(
                     "Enjoy your winter vacations with warmth\n"
                     "and amazing sightseeing on the mountains.\n"
                     "Enjoy the best experience with us!",
-                    style: TextStyle(
-                      fontFamily: "Source Sans Pro",
-                      fontSize: 16,
-                      color: Colors.black54,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onBackground.withValues(alpha: 0.6),
                     ),
                   ),
 
                   const SizedBox(height: 24),
 
                   CustomButton(
-                    text: "Let’s Go!",
+                    text: "Let's Go!",
                     onPressed: () {
                       Navigator.push(
                         context,

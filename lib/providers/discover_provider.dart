@@ -9,22 +9,37 @@ class DiscoverProvider extends ChangeNotifier {
   List<Trip> _horizontalTrips = [];
   List<Trip> _verticalTrips = [];
 
+  bool _isLoading = true;
+
   String get selectedFilter => _selectedFilter;
   List<Trip> get horizontalTrips => _horizontalTrips;
   List<Trip> get verticalTrips => _verticalTrips;
+  bool get isLoading => _isLoading;
 
   DiscoverProvider() {
-    init(); // 👈 автозагрузка
+    init();
   }
 
   Future<void> init() async {
+    _isLoading = true;
+    notifyListeners();
+
     await loadHorizontalTrips();
-    setFilter(_selectedFilter);
+    await _loadVerticalTrips();
+
+    _isLoading = false;
+    notifyListeners();
   }
 
-  void setFilter(String filter) {
+  void setFilter(String filter) async {
     _selectedFilter = filter;
-    _loadVerticalTrips();
+
+    _isLoading = true;
+    notifyListeners();
+
+    await _loadVerticalTrips();
+
+    _isLoading = false;
     notifyListeners();
   }
 
@@ -49,12 +64,13 @@ class DiscoverProvider extends ChangeNotifier {
         imageUrl: await _rickService.getRandomImage(),
       ),
     ];
-    notifyListeners();
   }
 
   Future<void> _loadVerticalTrips() async {
+    await Future.delayed(const Duration(seconds: 1));
+
     _verticalTrips = List.generate(
-      5,
+      8,
       (i) => Trip(
         title: "$_selectedFilter Trip $i",
         location: _selectedFilter,
