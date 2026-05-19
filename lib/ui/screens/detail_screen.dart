@@ -15,6 +15,8 @@ class DetailScreen extends StatelessWidget {
     final trip = provider.selectedTrip;
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
+    final pricePerDay = 50;
+    final totalPrice = provider.days * pricePerDay;
 
     if (trip == null) {
       return const Scaffold(body: Center(child: Text("No trip selected")));
@@ -23,25 +25,30 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Stack(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.4,
-                width: double.infinity,
-                child: Image.network(trip.imageUrl, fit: BoxFit.cover),
-              ),
-              Positioned(
-                top: 50,
-                left: 16,
-                child: CircleAvatar(
-                  backgroundColor: cs.surface.withValues(alpha: 0.85),
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back, color: cs.onSurface),
-                    onPressed: () => Navigator.pop(context),
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(
+              bottom: Radius.circular(28),
+            ),
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  width: double.infinity,
+                  child: Image.network(trip.imageUrl, fit: BoxFit.cover),
+                ),
+                Positioned(
+                  top: 50,
+                  left: 16,
+                  child: CircleAvatar(
+                    backgroundColor: cs.surface.withValues(alpha: 0.85),
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_back, color: cs.onSurface),
+                      onPressed: () => Navigator.pop(context),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
 
           Expanded(
@@ -60,12 +67,8 @@ class DetailScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Название
                           Text(trip.title, style: tt.headlineLarge),
-
                           const SizedBox(height: 4),
-
-                          // Локация
                           Row(
                             children: [
                               Icon(
@@ -82,10 +85,7 @@ class DetailScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-
                           const SizedBox(height: 8),
-
-                          // Рейтинг
                           Row(
                             children: [
                               Icon(
@@ -104,8 +104,6 @@ class DetailScreen extends StatelessWidget {
                           ),
 
                           const SizedBox(height: 20),
-
-                          // Количество дней
                           Row(
                             children: [
                               DayCounter(
@@ -142,8 +140,6 @@ class DetailScreen extends StatelessWidget {
                           ),
 
                           const SizedBox(height: 20),
-
-                          // Описание
                           Text("Description", style: tt.headlineMedium),
                           const SizedBox(height: 8),
                           Text(
@@ -159,14 +155,12 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-
-                  // ── Bottom bar: цена + кнопка ───────────────────
                   Row(
                     children: [
                       Expanded(
                         flex: 2,
                         child: Text(
-                          "\$400",
+                          "\$$totalPrice",
                           style: AppTextStyles.price.copyWith(
                             color: cs.primary,
                           ),
@@ -181,7 +175,14 @@ class DetailScreen extends StatelessWidget {
                       const SizedBox(width: 12),
                       Expanded(
                         flex: 3,
-                        child: CustomButton(text: "Book Now", onPressed: () {}),
+                        child: CustomButton(
+                          text: "Book Now",
+                          onPressed: () {},
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 8,
+                          ),
+                        ),
                       ),
                     ],
                   ),

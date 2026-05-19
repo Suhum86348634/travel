@@ -20,7 +20,7 @@ class CardItem extends StatelessWidget {
     final theme = Theme.of(context);
 
     if (isLoading) {
-      return _ShimmerCard(theme: theme);
+      return const _ShimmerCard();
     }
 
     return AspectRatio(
@@ -42,7 +42,7 @@ class CardItem extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.5),
+                  color: const Color.fromARGB(255, 45, 64, 38).withOpacity(0.5),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
@@ -52,7 +52,7 @@ class CardItem extends StatelessWidget {
                       title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.bodyLarge?.copyWith(
+                      style: theme.textTheme.bodySmall?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -76,53 +76,69 @@ class CardItem extends StatelessWidget {
 }
 
 class _ShimmerCard extends StatelessWidget {
-  final ThemeData theme;
-
-  const _ShimmerCard({required this.theme});
+  const _ShimmerCard();
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return AspectRatio(
       aspectRatio: 1,
       child: Shimmer.fromColors(
-        baseColor: theme.colorScheme.surfaceContainerHighest,
-        highlightColor: theme.colorScheme.surface,
+        baseColor: isDark
+            ? theme.colorScheme.surface.withOpacity(0.6)
+            : theme.colorScheme.primary.withOpacity(0.15),
+
+        highlightColor: isDark
+            ? theme.colorScheme.surface.withOpacity(0.3)
+            : theme.colorScheme.primary.withOpacity(0.05),
+
         period: const Duration(milliseconds: 1200),
+
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: Stack(
             children: [
               Positioned.fill(
                 child: Container(
-                  color: theme.colorScheme.surfaceContainerHighest,
+                  color: isDark
+                      ? theme.colorScheme.surface
+                      : theme.colorScheme.primary.withOpacity(0.1),
                 ),
               ),
-
-              Positioned.fill(
-                child: Container(
-                  color: theme.colorScheme.surfaceContainerHighest,
-                ),
-              ),
-
               Positioned(
                 left: 12,
                 right: 12,
                 bottom: 12,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 14,
-                      width: double.infinity,
-                      color: theme.colorScheme.surface,
-                    ),
-                    const SizedBox(height: 6),
-                    Container(
-                      height: 12,
-                      width: 80,
-                      color: theme.colorScheme.surface,
-                    ),
-                  ],
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 194, 233, 170).withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 14,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 184, 224, 164).withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Container(
+                        height: 12,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 235, 214, 181).withOpacity(0.7),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

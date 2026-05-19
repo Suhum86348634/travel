@@ -7,27 +7,51 @@ import 'package:travel/ui/screens/settings_screen.dart';
 class BottomNav extends StatelessWidget {
   const BottomNav({super.key});
 
-  List<PersistentTabConfig> _tabs() => [
-    PersistentTabConfig(
-      screen: const DiscoverScreen(),
-      item: ItemConfig(icon: const Icon(Icons.explore), title: "Discover"),
-    ),
-    PersistentTabConfig(
-      screen: const SettingsScreen(),
-      item: ItemConfig(icon: const Icon(Icons.settings), title: "Settings"),
-    ),
-    PersistentTabConfig(
-      screen: const ProfileScreen(),
-      item: ItemConfig(icon: const Icon(Icons.person), title: "Profile"),
-    ),
-  ];
+  List<PersistentTabConfig> _tabs(BuildContext context) {
+    final navBarTheme = Theme.of(context).colorScheme;
+
+    return [
+      PersistentTabConfig(
+        screen: const DiscoverScreen(),
+        item: ItemConfig(
+          icon: const Icon(Icons.explore),
+          title: 'Discover',
+          activeForegroundColor: navBarTheme.primary,
+          inactiveForegroundColor: navBarTheme.onSurfaceVariant,
+        ),
+      ),
+      PersistentTabConfig(
+        screen: const SettingsScreen(),
+        item: ItemConfig(
+          icon: const Icon(Icons.settings),
+          title: 'Settings',
+          activeForegroundColor: navBarTheme.primary,
+          inactiveForegroundColor: navBarTheme.onSurfaceVariant,
+        ),
+      ),
+      PersistentTabConfig(
+        screen: const ProfileScreen(),
+        item: ItemConfig(
+          icon: const Icon(Icons.person),
+          title: 'Profile',
+          activeForegroundColor: navBarTheme.primary,
+          inactiveForegroundColor: navBarTheme.onSurfaceVariant,
+        ),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+    final navBarTheme = Theme.of(context).colorScheme;
+
     return PersistentTabView(
-      tabs: _tabs(),
-      navBarBuilder: (navBarConfig) =>
-          Style1BottomNavBar(navBarConfig: navBarConfig),
+      tabs: _tabs(context),
+      backgroundColor: navBarTheme.surface,
+      navBarBuilder: (navBarConfig) => Style1BottomNavBar(
+        navBarConfig: navBarConfig,
+        navBarDecoration: NavBarDecoration(color: navBarTheme.surfaceContainer),
+      ),
     );
   }
 }

@@ -19,8 +19,8 @@ ThemeData _buildLightTheme() {
     onPrimaryContainer: AppColors.primaryDark,
     secondary: AppColors.accent,
     onSecondary: AppColors.white,
-    secondaryContainer: Color(0xFFFFD6E8),
-    onSecondaryContainer: Color(0xFF7A0040),
+    secondaryContainer: Color(0xFFF1E3C8),
+    onSecondaryContainer: Color(0xFF5C4A2F),
     surface: AppColors.lightSurface,
     onSurface: AppColors.lightTextPrimary,
     background: AppColors.lightBackground,
@@ -82,7 +82,7 @@ ThemeData _buildLightTheme() {
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         ),
-        textStyle: WidgetStateProperty.all(AppTextStyles.button),
+        textStyle: WidgetStateProperty.all(AppTextStyles.h2),
         animationDuration: const Duration(milliseconds: 150),
       ),
     ),
@@ -99,7 +99,7 @@ ThemeData _buildLightTheme() {
         padding: WidgetStateProperty.all(
           const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         ),
-        textStyle: WidgetStateProperty.all(AppTextStyles.button),
+        textStyle: WidgetStateProperty.all(AppTextStyles.h2),
       ),
     ),
 
@@ -107,7 +107,7 @@ ThemeData _buildLightTheme() {
       style: ButtonStyle(
         foregroundColor: WidgetStateProperty.all(AppColors.primary),
         textStyle: WidgetStateProperty.all(
-          AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600),
+          AppTextStyles.h2,
         ),
         padding: WidgetStateProperty.all(
           const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -226,7 +226,7 @@ ThemeData _buildDarkTheme() {
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         ),
-        textStyle: WidgetStateProperty.all(AppTextStyles.button),
+        textStyle: WidgetStateProperty.all(AppTextStyles.h2),
       ),
     ),
 
@@ -242,7 +242,7 @@ ThemeData _buildDarkTheme() {
         padding: WidgetStateProperty.all(
           const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         ),
-        textStyle: WidgetStateProperty.all(AppTextStyles.button),
+        textStyle: WidgetStateProperty.all(AppTextStyles.h2),
       ),
     ),
 

@@ -33,7 +33,7 @@ class DiscoverScreen extends StatelessWidget {
 
             ListTile(
               leading: const Icon(Icons.explore),
-              title: const Text("Discover"),
+              title: Text("Discover", style: theme.textTheme.bodyMedium),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -41,7 +41,7 @@ class DiscoverScreen extends StatelessWidget {
 
             ListTile(
               leading: const Icon(Icons.person),
-              title: const Text("Profile"),
+              title: Text("Profile", style: theme.textTheme.bodyMedium),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -53,7 +53,7 @@ class DiscoverScreen extends StatelessWidget {
 
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text("Settings"),
+              title: Text("Settings", style: theme.textTheme.bodyMedium),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -67,7 +67,7 @@ class DiscoverScreen extends StatelessWidget {
       ),
 
       appBar: AppBar(
-        title: const Text("Discover"),
+        title: Text("Discover", style: theme.textTheme.displayLarge),
 
         leading: Builder(
           builder: (context) => IconButton(
@@ -134,8 +134,7 @@ class DiscoverScreen extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     context.read<DetailProvider>().setTrip(trip);
-                    Navigator.push(
-                      context,
+                    Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(builder: (_) => const DetailScreen()),
                     );
                   },
@@ -180,8 +179,7 @@ class DiscoverScreen extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     context.read<DetailProvider>().setTrip(trip);
-                    Navigator.push(
-                      context,
+                    Navigator.of(context, rootNavigator: true).push(
                       MaterialPageRoute(builder: (_) => const DetailScreen()),
                     );
                   },

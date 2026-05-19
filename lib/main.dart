@@ -6,7 +6,6 @@ import 'package:travel/providers/detail_provider.dart';
 import 'package:travel/providers/theme_provier.dart';
 import 'package:travel/theme/app_theme.dart';
 import 'package:travel/ui/screens/promo_screen.dart';
-import 'package:travel/widgets/bottom_nav_bar.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
